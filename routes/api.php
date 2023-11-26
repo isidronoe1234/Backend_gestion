@@ -25,7 +25,10 @@ Route::controller(AgremiadoController::class)->group(function(){
     Route::post('newAgremiado','newAgremiado');
     Route::get('Agremiados','getAgremiados');
     Route::get('Agremiado/{id}','getAgremiadoById');
-    //Route::delete('eliminarCategoria/{id}','deleteCategoryById');
+    Route::patch('desactivarAgremiado/{id}','deactivateAgremiadoById');
+    Route::patch('updateAgremiado/{id}','updateAgremiadoById');
+    Route::get('AgremiadosArchivados','getAgremiadosArchivados');
+    Route::patch('activarAgremiado/{id}','activateAgremiadoById');
 });
 
 //Rutas para el login

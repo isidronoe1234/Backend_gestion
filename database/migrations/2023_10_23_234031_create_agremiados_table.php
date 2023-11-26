@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('sexo',45);
             $table->string('NUP');
             $table->string('NUE',10)->unique();
-            $table->string('RFC');
-            $table->string('NSS',11);
+            $table->string('RFC')->unique();
+            $table->string('NSS',11)->unique();
             $table->date('f_nacimiento');
-            $table->string('telefono',10);
+            $table->string('telefono',10)->unique();
             $table->boolean('cuota');
             $table->boolean('status')->default(true);
             $table->timestamps();

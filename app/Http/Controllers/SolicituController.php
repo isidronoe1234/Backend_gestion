@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Solicitu;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class SolicituController extends Controller
 {
@@ -48,12 +49,20 @@ class SolicituController extends Controller
     //Funcion para obtener todoas las solicitudes
     public function getSolicitudes(){
 
-        $solicitudes=Solicitu::all();
-        foreach ($solicitudes as $solicitud) {
+        $informacion = DB::table('solicitus')
+            ->join('agremiados', 'solicitus.NUE', '=', 'agremiados.NUE')
+            ->where('agremiados.status', 1)
+            ->select('solicitus.*','agremiados.nombre', 'agremiados.a_paterno', 'agremiados.a_materno')
+            ->get();
+    
+        // Modify the $informacion data as needed
+        foreach ($informacion as $solicitud) {
             $solicitud->ruta_archivo = asset(Storage::url($solicitud->ruta_archivo));
         }
-        return response()->json($solicitudes, 200);
+    
+        return response()->json($informacion, 200);
     }
+    
     
     //Función para obtener las solitudes de un usuario por su NUE
     public function getSolicitudByNUE($NUE){
